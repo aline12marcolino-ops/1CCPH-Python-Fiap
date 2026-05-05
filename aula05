@@ -1,0 +1,17 @@
+lista_fruta = ["Abacaxi", "Banana","Mamão"]
+
+#lista_fruta[0]="Abacaxi"
+#lista_fruta[1]="Banana"
+#lista_fruta[2]="Mamão"
+print(lista_fruta[1])
+
+lista_fruta.append("Melancia")
+
+
+for i  in range(len(lista_fruta)):
+    print(lista_fruta[i])
+
+    print()
+
+    for fruta in lista_fruta:
+        print(fruta)

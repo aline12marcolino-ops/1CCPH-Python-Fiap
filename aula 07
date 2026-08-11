@@ -1,0 +1,46 @@
+eng2esp = dict()
+print(eng2esp)
+
+eng2esp["one"] = 'uno'
+print(eng2esp)
+
+eng2esp = {
+    'one': 'uno',
+    'two': 'dos',
+    'three': 'tres'}
+print(eng2esp)
+print(eng2esp['one'])
+
+# OPERADOR IN
+print('one' in eng2esp)
+
+# Verificar os valores do dict
+valores = eng2esp.values()
+
+print('uno' in valores)
+
+#Contador de letras
+def count_letters(s):
+    d=dict()
+    for c in s:
+        if c not in d:
+            d[c]=1
+        else:
+            d[c]+=1
+    return d
+dict_contagem = count_letters("abacaxi".lower())
+print(dict_contagem)
+
+#Atribuição de tuplas
+a=5
+b=10
+print(f"a:{a}, b:{b}")
+
+a,b =b,a
+print(f"a:{a}, b:{b}")
+
+email= "fu@gmail.com"
+usuario,dominio = email.split("@")
+print(usuario)
+print(dominio)
+

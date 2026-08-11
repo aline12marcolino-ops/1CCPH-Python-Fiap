@@ -1,0 +1,58 @@
+
+def eh_sucesso(codigo):
+    return codigo >= 200 and codigo <= 299
+
+def erros_seguidos(resposta_http):
+    for i in range(len(resposta_http) - 1):
+        codigo_atual = resposta_http[i]
+        prox_codigo = resposta_http[i + 1]
+
+        if not eh_sucesso(codigo_atual) and not eh_sucesso(prox_codigo):
+            return True
+    return False
+
+def analisar_enpoint(resposta_http):
+    qtd_sucessos = 0
+
+    for cod_http in resposta_http:
+        if eh_sucesso(cod_http):
+            qtd_sucessos += 1
+
+    qtd_tot_req = len(resposta_http)
+    qtd_erros = qtd_tot_req - qtd_sucessos
+    percentual_sucessos = (qtd_sucessos / qtd_tot_req) * 100
+
+    tem_erros_seguidos = erros_seguidos(resposta_http)
+
+    if tem_erros_seguidos:
+        classificacao = "Crítico"  # Corrigido: era clacificacao
+    elif percentual_sucessos >= 80:
+        classificacao = "Estável"
+    else:
+        classificacao = "Instável"
+
+    return (qtd_sucessos, qtd_erros, percentual_sucessos, classificacao)
+
+# Percorrendo toda a matriz
+maior_qtd_erros = -1
+endpoint_maior_erro = ""  # Nome padronizado
+
+for i in range(len(endpoints)):
+    nome_endpoint = endpoints[i]
+    resposta_endpoint = status[i]
+    sucessos, erros, percentual, classificacao = analisar_enpoint(resposta_endpoint)
+
+    print(f"Endpoint: {nome_endpoint}")
+    print(f"Resposta HTTP: {resposta_endpoint}")
+    print(f"Sucesso: {sucessos}")
+    print(f"Erros: {erros}")
+    print(f"% de sucessos: {percentual}%")
+    print(f"Classificação: {classificacao}")
+    print("-" * 30)
+    print()
+
+    if erros > maior_qtd_erros:
+        maior_qtd_erros = erros
+        endpoint_maior_erro = nome_endpoint  # Corrigido: era endpoint_maior_qtd_erro
+
+print(f"Endpoint com mais erros: {endpoint_maior_erro} ({maior_qtd_erros} erros)")
